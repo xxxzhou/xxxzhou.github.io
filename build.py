@@ -1,0 +1,148 @@
+"""Build the Panvox site pages from panvox/docs/release policy sources.
+
+Source of truth: privacy-policy.{en,zh}.md in the panvox repo.
+Run:  python build.py
+"""
+import pathlib
+import re
+
+import markdown
+
+SRC = pathlib.Path(r"D:\Work\github\panvox\docs\release")
+OUT = pathlib.Path(__file__).parent.resolve()
+EMAIL = "mfjt55@163.com"
+ISSUES = "https://github.com/xxxzhou/xxxzhou.github.io/issues"
+
+TEMPLATE = """<!DOCTYPE html>
+<html lang="@LANG@">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@TITLE@</title>
+<meta name="description" content="@DESC@">
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; line-height:1.75; color:#1c1c1e; background:#fff; }
+nav { max-width:760px; margin:0 auto; padding:18px 20px 0; display:flex; justify-content:space-between; align-items:baseline; }
+nav .brand { font-weight:700; letter-spacing:.02em; }
+nav .links a { margin-left:14px; color:#666; text-decoration:none; font-size:.95em; }
+nav .links a:hover { text-decoration:underline; }
+main { max-width:760px; margin:0 auto; padding:24px 20px 48px; }
+h1 { font-size:1.65em; border-bottom:1px solid #ddd; padding-bottom:.4em; }
+h2 { margin-top:2em; font-size:1.22em; }
+h3 { font-size:1.05em; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.93em; }
+th,td { border:1px solid #ccc; padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#f5f5f7; }
+footer { max-width:760px; margin:0 auto; padding:0 20px 44px; color:#888; font-size:.9em; }
+a { color:#0366d6; }
+ul,ol { padding-left:1.4em; }
+@media (prefers-color-scheme: dark) {
+  body { background:#111114; color:#e4e4e7; }
+  th { background:#1d1d21; }
+  th,td { border-color:#3a3a3f; }
+  h1 { border-bottom-color:#3a3a3f; }
+  nav .links a { color:#999; }
+  footer { color:#77777d; }
+}
+</style>
+</head>
+<body>
+<nav><span class="brand">Panvox</span><span class="links">@NAV@</span></nav>
+<main>
+@BODY@
+</main>
+<footer>© 2026 Panvox · <a href="mailto:@EMAIL@">@EMAIL@</a></footer>
+</body>
+</html>
+"""
+
+
+def load_policy(fname: str, scope: str, dateline: str) -> str:
+    lines = (SRC / fname).read_text(encoding="utf-8").splitlines()
+    first_h2 = next(i for i, l in enumerate(lines) if l.startswith("## "))
+    body = "\n".join([lines[0], "", scope, "", dateline, ""] + lines[first_h2:])
+    # rewrite the TBD feedback line before stripping all TBD brackets
+    body = re.sub(
+        r"- Feedback & issues\s*:\s*\[[^\]]*\]",
+        "- Feedback & issues: [GitHub Issues](%s)" % ISSUES,
+        body,
+    )
+    body = re.sub(
+        r"- 反馈与问题\s*[:：]\s*\[[^\]]*\]",
+        "- 反馈与问题:[GitHub Issues](%s)" % ISSUES,
+        body,
+    )
+    body = re.sub(r"【[^】]*】\s*", "", body)
+    body = body.replace("dev@panvox.app", EMAIL)
+    return body
+
+
+def render(body_html: str, lang: str, title: str, desc: str, nav: str) -> str:
+    return (
+        TEMPLATE.replace("@LANG@", lang)
+        .replace("@TITLE@", title)
+        .replace("@DESC@", desc)
+        .replace("@NAV@", nav)
+        .replace("@BODY@", body_html)
+        .replace("@EMAIL@", EMAIL)
+    )
+
+
+en = load_policy(
+    "privacy-policy.en.md",
+    "This policy applies to the Panvox app on all platforms (Windows / macOS / Android / iOS).",
+    "*Effective Date: October 6, 2026*",
+)
+zh = load_policy(
+    "privacy-policy.zh.md",
+    "本政策适用于 Panvox 全平台应用(Windows / macOS / Android / iOS)。",
+    "*生效日期:2026 年 10 月 6 日*",
+)
+
+en_html = markdown.markdown(en, extensions=["tables"])
+zh_html = markdown.markdown(zh, extensions=["tables"])
+
+(OUT / "privacy.html").write_text(
+    render(
+        en_html, "en", "Panvox Privacy Policy",
+        "Panvox privacy policy: what data the app collects (almost none) and what leaves your device.",
+        '<a href="/">Home</a><a href="/privacy-zh.html">中文</a>',
+    ),
+    encoding="utf-8",
+)
+(OUT / "privacy-zh.html").write_text(
+    render(
+        zh_html, "zh-CN", "Panvox 隐私政策",
+        "Panvox 隐私政策:应用收集哪些数据(几乎不收集)、哪些数据会离开设备。",
+        '<a href="/">首页</a><a href="/privacy.html">English</a>',
+    ),
+    encoding="utf-8",
+)
+
+index_body = """<h1>Panvox</h1>
+<p>Panvox is a media player for Windows, macOS, Android and iOS.</p>
+<p>Panvox 是一款运行于 Windows / macOS / Android / iOS 的媒体播放器。</p>
+<h2>Privacy Policy 隐私政策</h2>
+<ul>
+<li><a href="/privacy.html" lang="en">Privacy Policy (English)</a></li>
+<li><a href="/privacy-zh.html" lang="zh-CN">隐私政策(简体中文)</a></li>
+</ul>"""
+(OUT / "index.html").write_text(
+    render(index_body, "en", "Panvox", "Panvox official site.",
+           '<a href="/privacy.html">Privacy</a><a href="/privacy-zh.html">隐私政策</a>'),
+    encoding="utf-8",
+)
+
+(OUT / "README.md").write_text(
+    "# xxxzhou.github.io\n\n"
+    "Panvox official site (static, no build pipeline needed for deploy).\n\n"
+    "Pages are generated by `build.py` from the policy sources in the private\n"
+    "panvox repo (`docs/release/privacy-policy.*.md`). Edit there, then:\n\n"
+    "    python build.py && git add -A && git commit -m ... && git push\n",
+    encoding="utf-8",
+)
+
+(OUT / ".nojekyll").write_text("", encoding="utf-8")
+print("built:", ", ".join(p.name for p in sorted(OUT.glob("*.html"))))
