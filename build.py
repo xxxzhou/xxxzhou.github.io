@@ -11,7 +11,7 @@ import markdown
 SRC = pathlib.Path(r"D:\Work\github\panvox\docs\release")
 OUT = pathlib.Path(__file__).parent.resolve()
 EMAIL = "mfjt55@163.com"
-ISSUES = "https://github.com/xxxzhou/xxxzhou.github.io/issues"
+ISSUES = "https://github.com/xxxzhou/avox/issues"
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="@LANG@">
@@ -63,14 +63,14 @@ def load_policy(fname: str, scope: str, dateline: str) -> str:
     lines = (SRC / fname).read_text(encoding="utf-8").splitlines()
     first_h2 = next(i for i, l in enumerate(lines) if l.startswith("## "))
     body = "\n".join([lines[0], "", scope, "", dateline, ""] + lines[first_h2:])
-    # rewrite the TBD feedback line before stripping all TBD brackets
+    # idempotently pin the feedback line to the canonical issues URL
     body = re.sub(
-        r"- Feedback & issues\s*:\s*\[[^\]]*\]",
+        r"- Feedback & issues\s*:.*",
         "- Feedback & issues: [GitHub Issues](%s)" % ISSUES,
         body,
     )
     body = re.sub(
-        r"- 反馈与问题\s*[:：]\s*\[[^\]]*\]",
+        r"- 反馈与问题\s*[:：].*",
         "- 反馈与问题:[GitHub Issues](%s)" % ISSUES,
         body,
     )
