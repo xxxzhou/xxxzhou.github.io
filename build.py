@@ -3,12 +3,16 @@
 Source of truth: privacy-policy.{en,zh}.md in the panvox repo.
 Run:  python build.py
 """
+import os
 import pathlib
 import re
 
 import markdown
 
-SRC = pathlib.Path(r"D:\Work\github\panvox\docs\release")
+# 源在 panvox 私仓; 默认给 PC 路径, 别的机器用 PANVOX_DOCS 指到本地 checkout。
+SRC = pathlib.Path(
+    os.environ.get("PANVOX_DOCS") or r"D:\Work\github\panvox\docs\release"
+)
 OUT = pathlib.Path(__file__).parent.resolve()
 EMAIL = "mfjt55@163.com"
 ISSUES = "https://github.com/xxxzhou/avox/issues"
@@ -92,12 +96,12 @@ def render(body_html: str, lang: str, title: str, desc: str, nav: str) -> str:
 
 en = load_policy(
     "privacy-policy.en.md",
-    "This policy applies to the Panvox app on all platforms (Windows / macOS / Android / iOS).",
+    "This policy applies to the Panvox app on all platforms.",
     "*Effective Date: October 6, 2026*",
 )
 zh = load_policy(
     "privacy-policy.zh.md",
-    "本政策适用于 Panvox 全平台应用(Windows / macOS / Android / iOS)。",
+    "本政策适用于 Panvox 全平台应用。",
     "*生效日期:2026 年 10 月 6 日*",
 )
 
@@ -122,8 +126,8 @@ zh_html = markdown.markdown(zh, extensions=["tables"])
 )
 
 index_body = """<h1>Panvox</h1>
-<p>Panvox is a media player for Windows, macOS, Android and iOS.</p>
-<p>Panvox 是一款运行于 Windows / macOS / Android / iOS 的媒体播放器。</p>
+<p>Panvox is a media player for desktop and mobile.</p>
+<p>Panvox 是一款桌面与移动端媒体播放器。</p>
 <h2>Privacy Policy 隐私政策</h2>
 <ul>
 <li><a href="/privacy.html" lang="en">Privacy Policy (English)</a></li>
