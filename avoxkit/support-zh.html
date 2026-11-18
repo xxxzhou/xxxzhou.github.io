@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avoxkit 支持</title>
+<meta name="description" content="Avoxkit 音视频转换器支持页：常见问题与联系方式。">
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; line-height:1.75; color:#1c1c1e; background:#fff; }
+nav { max-width:760px; margin:0 auto; padding:18px 20px 0; display:flex; justify-content:space-between; align-items:baseline; }
+nav .brand { font-weight:700; letter-spacing:.02em; }
+nav .links a { margin-left:14px; color:#666; text-decoration:none; font-size:.95em; }
+nav .links a:hover { text-decoration:underline; }
+main { max-width:760px; margin:0 auto; padding:24px 20px 48px; }
+h1 { font-size:1.65em; border-bottom:1px solid #ddd; padding-bottom:.4em; }
+h2 { margin-top:2em; font-size:1.22em; }
+h3 { font-size:1.05em; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.93em; }
+th,td { border:1px solid #ccc; padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#f5f5f7; }
+footer { max-width:760px; margin:0 auto; padding:0 20px 44px; color:#888; font-size:.9em; }
+a { color:#0366d6; }
+ul,ol { padding-left:1.4em; }
+@media (prefers-color-scheme: dark) {
+  body { background:#111114; color:#e4e4e7; }
+  th { background:#1d1d21; }
+  th,td { border-color:#3a3a3f; }
+  h1 { border-bottom-color:#3a3a3f; }
+  nav .links a { color:#999; }
+  footer { color:#77777d; }
+}
+</style>
+</head>
+<body>
+<nav><span class="brand">Avoxkit</span><span class="links"><a href="/avoxkit/support-en.html">English</a></span></nav>
+
+<main>
+<h1>Avoxkit 支持</h1>
+<p>Avoxkit 是一款免费、本地、不需要账号的 macOS 音视频工具箱：格式转换、截取片段、提取音频、生成字幕、图像修复、屏幕录制与批量处理。遇到问题、发现 bug，或想提建议，可以通过下面的方式联系我们。</p>
+
+<h2>常见问题</h2>
+
+<h3>转换后的文件在哪里？</h3>
+<p>转换、截取、提取音频或字幕生成完成后，在「任务列表」里点该任务的「打开产物」即可直接定位到输出文件。输出目录可以在任务开始前选择；如果没有更改，会使用应用默认的输出位置。批量任务按原文件夹结构分别输出。</p>
+
+<h3>需要联网吗？</h3>
+<p>转换、截取、提取音频开箱即用，全程在这台电脑上处理，不会上传到任何服务器。字幕生成与图像修复首次使用时会下载对应的本地模型，下载完成后可完全离线使用；模型只在本机运行。</p>
+
+<h3>支持哪些格式？</h3>
+<p>常见容器 MP4 / MKV / MOV 等互转，视频编码 H.264 / H.265，输出分辨率 2160p / 1440p / 1080p / 720p / 480p 可选。只更换容器时会直接封装、不重新编码，速度最快且不损失画质；需要改变编码或分辨率时才重新编码。</p>
+
+<h3>为什么有些任务很慢？</h3>
+<p>速度取决于是否重新编码。只改容器（封装）通常几秒完成；改编码或压缩到更低分辨率需要逐帧处理，耗时与视频时长、分辨率、机器性能成正比。截取片段默认不重新编码，因此几乎瞬时完成。</p>
+
+<h3>字幕生成支持哪些语言？</h3>
+<p>本地语音识别支持中文、英文、日文、韩文与粤语。首次使用某个语言时会下载对应模型，之后离线可用。识别结果可导出为字幕文件。</p>
+
+<h3>去水印/去杂物是怎么做的？</h3>
+<p>使用本地图像修复模型，在设备上处理，不上传图片。处理后建议先预览再保存，复杂背景下的效果取决于画面内容。</p>
+
+<h3>任务失败了怎么办？</h3>
+<p>在「任务列表」里点失败的条目可以查看原因；常见原因是源文件损坏、磁盘空间不足，或输出位置没有写入权限。修正后可以直接重试该任务，不影响已成功的条目。</p>
+
+<h3>Avoxkit 收费吗？需要账号吗？</h3>
+<p>当前版本免费，不需要注册或登录，也不收集使用数据。</p>
+
+<h3>支持的系统版本？</h3>
+<p>macOS 12 或更高版本，Intel 与 Apple 芯片均可运行。</p>
+
+<h2>联系</h2>
+<ul>
+<li>邮箱：<a href="mailto:mfjt55@163.com">mfjt55@163.com</a></li>
+<li>问题反馈：<a href="https://github.com/xxxzhou/avoxkit/issues">github.com/xxxzhou/avoxkit/issues</a>（可选，邮件更快）</li>
+</ul>
+<p>我们通常会在 2 个工作日内回复。反馈时请附上 macOS 版本、Avoxkit 版本，以及「任务列表」里显示的错误信息。</p>
+</main>
+<footer>© 2026 Xin Zhou · <a href="mailto:mfjt55@163.com">mfjt55@163.com</a></footer>
+</body>
+</html>

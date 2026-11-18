@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avoxkit Support</title>
+<meta name="description" content="Support page for Avoxkit — audio and video toolbox for macOS.">
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; line-height:1.75; color:#1c1c1e; background:#fff; }
+nav { max-width:760px; margin:0 auto; padding:18px 20px 0; display:flex; justify-content:space-between; align-items:baseline; }
+nav .brand { font-weight:700; letter-spacing:.02em; }
+nav .links a { margin-left:14px; color:#666; text-decoration:none; font-size:.95em; }
+nav .links a:hover { text-decoration:underline; }
+main { max-width:760px; margin:0 auto; padding:24px 20px 48px; }
+h1 { font-size:1.65em; border-bottom:1px solid #ddd; padding-bottom:.4em; }
+h2 { margin-top:2em; font-size:1.22em; }
+h3 { font-size:1.05em; }
+table { border-collapse:collapse; width:100%; margin:1em 0; font-size:.93em; }
+th,td { border:1px solid #ccc; padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#f5f5f7; }
+footer { max-width:760px; margin:0 auto; padding:0 20px 44px; color:#888; font-size:.9em; }
+a { color:#0366d6; }
+ul,ol { padding-left:1.4em; }
+@media (prefers-color-scheme: dark) {
+  body { background:#111114; color:#e4e4e7; }
+  th { background:#1d1d21; }
+  th,td { border-color:#3a3a3f; }
+  h1 { border-bottom-color:#3a3a3f; }
+  nav .links a { color:#999; }
+  footer { color:#77777d; }
+}
+</style>
+</head>
+<body>
+<nav><span class="brand">Avoxkit</span><span class="links"><a href="/avoxkit/support-zh.html">中文</a></span></nav>
+
+<main>
+<h1>Avoxkit Support</h1>
+<p>Avoxkit is a free, local, account-free audio and video toolbox for macOS: format conversion, trimming, audio extraction, subtitle generation, image cleanup, screen recording and batch processing. If something goes wrong, or you have a suggestion, here is how to reach us.</p>
+
+<h2>Frequently asked questions</h2>
+
+<h3>Where do converted files go?</h3>
+<p>When a conversion, trim, audio extraction or subtitle job finishes, click <em>Open Output</em> on that task in the task list to reveal the file in Finder. You can choose the output folder before starting a job; if you don't change it, the app uses its default output location. Batch jobs mirror the original folder structure.</p>
+
+<h3>Do I need an internet connection?</h3>
+<p>Conversion, trimming and audio extraction work out of the box and are processed entirely on this Mac — nothing is uploaded to any server. Subtitle generation and image cleanup download a local model the first time you use them; after that they work fully offline, and the model runs only on this Mac.</p>
+
+<h3>Which formats are supported?</h3>
+<p>Common containers such as MP4 / MKV / MOV can be converted between each other, with H.264 or H.265 encoding and output resolution options of 2160p / 1440p / 1080p / 720p / 480p. When only the container changes, the stream is remuxed without re-encoding — fastest, and no quality loss. Re-encoding only happens when you change codec or resolution.</p>
+
+<h3>Why are some jobs slow?</h3>
+<p>It depends on whether the video is re-encoded. A container change (remux) usually takes seconds; changing codec or downscaling processes every frame, so time scales with duration, resolution and machine performance. Trimming keeps the original encoding, so it is nearly instant.</p>
+
+<h3>Which languages does subtitle generation support?</h3>
+<p>On-device speech recognition supports Chinese, English, Japanese, Korean and Cantonese. The first use of a language downloads its model; afterwards it works offline. Results can be exported as a subtitle file.</p>
+
+<h3>How does watermark / object removal work?</h3>
+<p>It uses a local inpainting model and runs on your Mac — images are never uploaded. Preview before saving; results depend on the background complexity.</p>
+
+<h3>What if a task fails?</h3>
+<p>Click the failed item in the task list to see the reason. Common causes are a damaged source file, insufficient disk space, or an output folder without write permission. Fix the cause and retry that task; successful items are unaffected.</p>
+
+<h3>Is Avoxkit paid? Do I need an account?</h3>
+<p>The current version is free. No sign-up or login is required, and no usage data is collected.</p>
+
+<h3>System requirements</h3>
+<p>macOS 12 or later, on both Intel and Apple silicon Macs.</p>
+
+<h2>Contact</h2>
+<ul>
+<li>Email: <a href="mailto:mfjt55@163.com">mfjt55@163.com</a></li>
+<li>Issue tracker (optional, email is faster): <a href="https://github.com/xxxzhou/avoxkit/issues">github.com/xxxzhou/avoxkit/issues</a></li>
+</ul>
+<p>We usually reply within 2 business days. Please include your macOS version, the Avoxkit version, and the error message shown in the task list.</p>
+</main>
+<footer>© 2026 Xin Zhou · <a href="mailto:mfjt55@163.com">mfjt55@163.com</a></footer>
+</body>
+</html>
